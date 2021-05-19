@@ -1,15 +1,9 @@
 package CabService.Invoice_Generator;
 
-import java.util.Scanner;
-
 public class CabService {
 	double totalfare=0;
 	double totalFareForMultipleRides;
 	double averagefarePerRide;
-	private static  int costPerMinute;
-	private static  double minCostPerKm;
-	private static double minfare;
-	private static double minfarePremium;
 	
 	public double calculateFare(final double distance, final int minute) {
 		
@@ -58,7 +52,6 @@ public class CabService {
 			double totalfare = (distance * minCostPerKm) + (minute * costPerMinute);
 			return totalfare;
 		}
-		double totalfare = (distance * minCostPerKm) + (minute * costPerMinute);
 		return totalfare;
 	}
 
