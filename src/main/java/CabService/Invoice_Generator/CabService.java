@@ -1,10 +1,14 @@
 package CabService.Invoice_Generator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CabService {
+	//initializing variables
 	double totalfare=0;
-	double totalFareForMultipleRides;
 	double averagefarePerRide;
-	
+	//method to calculate total fare by passing distance and time as parameters
+	//using if statements to calculate total fare and minimum fare
 	public double calculateFare(final double distance, final int minute) {
 		
 		totalfare=(distance*10) + minute;
@@ -19,25 +23,26 @@ public class CabService {
 		
 		return totalfare;
 	}
-
+	//method to calculate total fare for number of rides
 	public double calculateTotalFare(Ride[] rides) {
 		for(Ride ride:rides) {
 			totalfare+=this.calculateFare(ride.distance, ride.minute);
 		}
 		return totalfare;
 	}
-
-	public double averagefarePerRide(double totalFare2, int length) {
-		averagefarePerRide=totalFare2/length;
+	//method to calculate average fare for ride bt passing total fare and length of ride as parameters
+	public double averagefarePerRide(double totalfare, int length) {
+		averagefarePerRide=totalfare/length;
 		return averagefarePerRide;
 	}
 	
-	public int returnNumOfRides(double totalFareForMultipleRides2, double averageFarePerRide2) {
+	public int returnNumOfRides(double totalfare, double averageFarePerRide) {
 
-		int numOfRides= (int) ( totalFareForMultipleRides2 / averageFarePerRide2 );
+		int numOfRides= (int) ( totalfare / averageFarePerRide );
 		return numOfRides;
 	}
-	
+	//overloading a calculateFare method to select choice for premier and normal ride by passing extra parameter for choice
+	//using if statements to calculate fare for normal and premium fare
 	public double calculateFare(String choice, double distance, int minute) {
 		if(choice.equalsIgnoreCase("Normal")) {
 			int costPerMinute =1;
@@ -52,8 +57,35 @@ public class CabService {
 			double totalfare = (distance * minCostPerKm) + (minute * costPerMinute);
 			return totalfare;
 		}
-		return totalfare;
+		return 0;
 	}
-
+	//method to generate invoice for particular user by passing user Id as parameter
+	//using arraylist to store the information of every users
+	//using for loop to loop through details for particular user
+	public InvoiceRecords findInvoice(String userId) throws InvalidInputException {
+			try {
+	    	List<InvoiceRecords> list = new ArrayList<>();
+			list.add(new InvoiceRecords("User1",3,600,200));
+			list.add(new InvoiceRecords("User2",2,248,124));
+			list.add(new InvoiceRecords("User3",4,440,110));
+			list.add(new InvoiceRecords("User4",8,560,70));
+			
+			InvoiceRecords user = null;
+			  for (int i = 0; i < list.size(); i++) {
+				if (userId.equals(list.get(i).getUserId())) {
+					user = list.get(i);
+					user.getNumofRides();
+					user.getTotalFare();
+					user.getAverageFare();
+				    break;
+				 } 
+			   }
+			return user;
+			}catch (NullPointerException ae ) {
+				throw new InvalidInputException("Invalid Input!No Records Found");
+			}
+	}
 }
+
+
 

@@ -78,4 +78,27 @@ CabService cabService = new CabService();
 		assertEquals(330, Fare,  0.0);
 			
 	}
+	
+	@Test
+	public void givenUserId_shouldReturn_InvoiceSummary() throws InvalidInputException {
+		String user ="User1";
+		InvoiceRecords invoicerecords = cabService.findInvoice(user);
+		InvoiceRecords expected = new InvoiceRecords("User1",3,600,200);
+		assertEquals(expected, invoicerecords);	
+	}
+	
+	@Test
+	public void givenUserId_shouldreturn_InvoiceSummary() throws InvalidInputException {
+		String user ="User4";
+		InvoiceRecords invoicerecords = cabService.findInvoice(user);
+		InvoiceRecords expected = new InvoiceRecords("User4",8,560,70);
+		assertEquals(expected, invoicerecords);	
+	}
+	
+	@Test
+	public void givenUserId_shouldReturn_InvalidInputException() throws InvalidInputException {
+		String user =" ";
+		InvoiceRecords invoicerecords = cabService.findInvoice(user);
+		assertEquals(null, invoicerecords);	
+	}
 }
